@@ -8,6 +8,10 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   String url =
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 
+  ///  State fields for stateful widgets in this page.
+
+  DateTime? datePicked;
+
   @override
   void initState(BuildContext context) {}
 

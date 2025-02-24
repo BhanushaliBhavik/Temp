@@ -79,6 +79,117 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
+              FFButtonWidget(
+                onPressed: () async {
+                  final _datePickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: getCurrentTimestamp,
+                    firstDate: getCurrentTimestamp,
+                    lastDate: DateTime(2050),
+                    builder: (context, child) {
+                      return wrapInMaterialDatePickerTheme(
+                        context,
+                        child!,
+                        headerBackgroundColor:
+                            FlutterFlowTheme.of(context).primary,
+                        headerForegroundColor:
+                            FlutterFlowTheme.of(context).info,
+                        headerTextStyle:
+                            FlutterFlowTheme.of(context).headlineLarge.override(
+                                  fontFamily: 'Inter Tight',
+                                  fontSize: 32.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                        pickerBackgroundColor:
+                            FlutterFlowTheme.of(context).secondaryBackground,
+                        pickerForegroundColor:
+                            FlutterFlowTheme.of(context).primaryText,
+                        selectedDateTimeBackgroundColor:
+                            FlutterFlowTheme.of(context).primary,
+                        selectedDateTimeForegroundColor:
+                            FlutterFlowTheme.of(context).info,
+                        actionButtonForegroundColor:
+                            FlutterFlowTheme.of(context).primaryText,
+                        iconSize: 24.0,
+                      );
+                    },
+                  );
+
+                  TimeOfDay? _datePickedTime;
+                  if (_datePickedDate != null) {
+                    _datePickedTime = await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.fromDateTime(getCurrentTimestamp),
+                      builder: (context, child) {
+                        return wrapInMaterialTimePickerTheme(
+                          context,
+                          child!,
+                          headerBackgroundColor:
+                              FlutterFlowTheme.of(context).primary,
+                          headerForegroundColor:
+                              FlutterFlowTheme.of(context).info,
+                          headerTextStyle: FlutterFlowTheme.of(context)
+                              .headlineLarge
+                              .override(
+                                fontFamily: 'Inter Tight',
+                                fontSize: 32.0,
+                                letterSpacing: 0.0,
+                                fontWeight: FontWeight.w600,
+                              ),
+                          pickerBackgroundColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          pickerForegroundColor:
+                              FlutterFlowTheme.of(context).primaryText,
+                          selectedDateTimeBackgroundColor:
+                              FlutterFlowTheme.of(context).primary,
+                          selectedDateTimeForegroundColor:
+                              FlutterFlowTheme.of(context).info,
+                          actionButtonForegroundColor:
+                              FlutterFlowTheme.of(context).primaryText,
+                          iconSize: 24.0,
+                        );
+                      },
+                    );
+                  }
+
+                  if (_datePickedDate != null && _datePickedTime != null) {
+                    safeSetState(() {
+                      _model.datePicked = DateTime(
+                        _datePickedDate.year,
+                        _datePickedDate.month,
+                        _datePickedDate.day,
+                        _datePickedTime!.hour,
+                        _datePickedTime.minute,
+                      );
+                    });
+                  } else if (_model.datePicked != null) {
+                    safeSetState(() {
+                      _model.datePicked = getCurrentTimestamp;
+                    });
+                  }
+                  await actions.scheduleLocalNotification(
+                    'HAHA',
+                    'HOHOHOHO',
+                    _model.datePicked!,
+                  );
+                },
+                text: 'Button',
+                options: FFButtonOptions(
+                  height: 40.0,
+                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primary,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily: 'Inter Tight',
+                        color: Colors.white,
+                        letterSpacing: 0.0,
+                      ),
+                  elevation: 0.0,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
             ],
           ),
         ),
