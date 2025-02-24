@@ -551,3 +551,12 @@ String newCustomFunction(String email) {
 
   return body;
 }
+
+DateTime? newCustomFunction2() {
+  DateTime now = DateTime.now();
+
+  // Add one minute to the current time
+  DateTime oneMinuteLater = now.add(Duration(minutes: 1));
+
+  return oneMinuteLater;
+}

@@ -61,20 +61,3 @@ Future<void> scheduleLocalNotification(
     print('Error scheduling notification: $e');
   }
 }
-
-Future<void> initializeNotifications() async {
-  const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings(
-          '@mipmap/ic_launcher'); // Replace with your launcher icon
-  final InitializationSettings initializationSettings =
-      InitializationSettings(android: initializationSettingsAndroid);
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-}
-
-// Example usage within a FlutterFlow Custom Action:
-
-Future<void> sendNotificationCustomAction(
-    String title, String content, DateTime time) async {
-  await initializeNotifications();
-  await scheduleLocalNotification(title, content, time);
-}
