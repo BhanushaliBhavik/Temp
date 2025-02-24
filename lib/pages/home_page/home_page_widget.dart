@@ -170,7 +170,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   }
                   await actions.scheduleLocalNotification(
                     'HAHA',
-                    'HOHOHOHO',
+                    'HOHOHO',
                     _model.datePicked!,
                   );
                 },
