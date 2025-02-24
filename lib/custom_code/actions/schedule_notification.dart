@@ -10,46 +10,53 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import '../actions/schedule_local_notification.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tzData;
+import 'package:flutter_timezone/flutter_timezone.dart';
 
-Future scheduleNotification(
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+Future<void> scheduleNotification(
   String title,
   String body,
-  DateTime time,
+  int hour,
+  int minute,
 ) async {
-  tzData.initializeTimeZones(); // Initialize time zones
+  // Ensure timezone is initialized
 
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  int id = DateTime.now().millisecondsSinceEpoch.remainder(100000); // Unique ID
+  final now = tz.TZDateTime.now(tz.local);
+  var scheduleDate =
+      tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minute);
 
-  const AndroidNotificationDetails androidPlatformChannelSpecifics =
+  // If the scheduled time is in the past, schedule for the next day
+  if (scheduleDate.isBefore(now)) {
+    scheduleDate = scheduleDate.add(Duration(days: 1));
+  }
+
+  // Create notification details
+  const AndroidNotificationDetails androidNotificationDetails =
       AndroidNotificationDetails(
-    'channel_id',
-    'channel_name',
-    channelDescription: 'channel_description',
+    'your_channel_id',
+    'your_channel_name',
+    channelDescription: 'your_channel_description',
     importance: Importance.max,
     priority: Priority.high,
+    ticker: 'ticker',
   );
 
-  // const IOSNotificationDetails iOSPlatformChannelSpecifics = IOSNotificationDetails();
-
-  const NotificationDetails platformChannelSpecifics = NotificationDetails(
-    android: androidPlatformChannelSpecifics,
-    // iOS: iOSPlatformChannelSpecifics,
-  );
+  const NotificationDetails notificationDetails =
+      NotificationDetails(android: androidNotificationDetails);
 
   await flutterLocalNotificationsPlugin.zonedSchedule(
-    0,
+    id,
     title,
     body,
-    tz.TZDateTime.from(time, tz.local),
-    platformChannelSpecifics,
+    scheduleDate,
+    notificationDetails,
+    androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
     uiLocalNotificationDateInterpretation:
         UILocalNotificationDateInterpretation.absoluteTime,
-    androidScheduleMode: AndroidScheduleMode
-        .exactAllowWhileIdle, //Added to ensure notifications fire even in doze mode
   );
 }

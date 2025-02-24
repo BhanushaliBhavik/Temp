@@ -177,7 +177,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     await actions.scheduleNotification(
                       'HAHA',
                       'HOHOHO',
-                      _model.datePicked!,
+                      17,
+                      51,
                     );
                   },
                   text: 'Button',
