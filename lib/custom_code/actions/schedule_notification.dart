@@ -18,14 +18,7 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
 Future<void> scheduleNotification(
-  String title,
-  String body,
-  int hour,
-  int minute,
-) async {
-  // Ensure timezone is initialized
-  initializedLocalNotifications();
-
+    String title, String body, int hour, int minute) async {
   int id = DateTime.now().millisecondsSinceEpoch.remainder(100000); // Unique ID
   final now = tz.TZDateTime.now(tz.local);
   var scheduleDate =
@@ -36,7 +29,6 @@ Future<void> scheduleNotification(
     scheduleDate = scheduleDate.add(Duration(days: 1));
   }
 
-  // Create notification details
   const AndroidNotificationDetails androidNotificationDetails =
       AndroidNotificationDetails(
     'your_channel_id',
@@ -60,24 +52,4 @@ Future<void> scheduleNotification(
     uiLocalNotificationDateInterpretation:
         UILocalNotificationDateInterpretation.absoluteTime,
   );
-}
-
-Future initializedLocalNotifications() async {
-  // Add your function code here!
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-// initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
-  const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
-  final DarwinInitializationSettings initializationSettingsDarwin =
-      DarwinInitializationSettings();
-  final LinuxInitializationSettings initializationSettingsLinux =
-      LinuxInitializationSettings(defaultActionName: 'Open notification');
-  final InitializationSettings initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
-      iOS: initializationSettingsDarwin,
-      macOS: initializationSettingsDarwin,
-      linux: initializationSettingsLinux);
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-      onDidReceiveNotificationResponse: null);
 }
