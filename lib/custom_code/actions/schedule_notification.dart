@@ -25,24 +25,6 @@ Future scheduleNotification(
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings(
-          'app_icon'); // Replace 'app_icon' with your app's icon name
-
-  // const IOSInitializationSettings initializationSettingsIOS =
-  //     IOSInitializationSettings(
-  //         requestAlertPermission: true,
-  //         requestBadgePermission: true,
-  //         requestSoundPermission: true,
-  //     );
-
-  const InitializationSettings initializationSettings = InitializationSettings(
-    android: initializationSettingsAndroid,
-    // iOS: initializationSettingsIOS,
-  );
-
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
   const AndroidNotificationDetails androidPlatformChannelSpecifics =
       AndroidNotificationDetails(
     'channel_id',
