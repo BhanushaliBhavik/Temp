@@ -14,11 +14,11 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 Future initializedLocalNotifications() async {
   // Add your function code here!
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
   const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('app_icon');
+      AndroidInitializationSettings('@mipmap/ic_launcher');
   final DarwinInitializationSettings initializationSettingsDarwin =
       DarwinInitializationSettings();
   final LinuxInitializationSettings initializationSettingsLinux =
