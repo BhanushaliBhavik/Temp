@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "708438594834",
+    "project_id": "backend-in7gy7",
+    "storage_bucket": "backend-in7gy7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708438594834:android:b1be6cd15bec7e19154fcb",
+        "android_client_info": {
+          "package_name": "com.mycompany.backend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANwYgwR6nkzhiOJNdtGNvY9kJhs3o8xMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708438594834:android:79e7950ab9a9747c154fcb",
+        "android_client_info": {
+          "package_name": "com.mycompany.temp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANwYgwR6nkzhiOJNdtGNvY9kJhs3o8xMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
