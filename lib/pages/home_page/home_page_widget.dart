@@ -189,6 +189,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         letterSpacing: 0.0,
                       ),
                 ),
+                Text(
+                  DateTime.now().timeZoneName,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        letterSpacing: 0.0,
+                      ),
+                ),
               ],
             ),
           ),
