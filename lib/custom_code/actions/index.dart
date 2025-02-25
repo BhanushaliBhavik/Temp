@@ -4,3 +4,4 @@ export 'notfication.dart' show notfication;
 export 'initialized_local_notifications.dart'
     show initializedLocalNotifications;
 export 'schedule_notification.dart' show scheduleNotification;
+export 'schedule_notifications.dart' show scheduleNotifications;

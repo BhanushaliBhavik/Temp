@@ -21,6 +21,7 @@ Future<void> sendLocalNotification(
     int id, // Unique ID for the notification
     String? payload,
     DateTime? notificationTime) async {
+  tz.initializeTimeZones();
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
