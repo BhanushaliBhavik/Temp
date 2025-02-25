@@ -56,8 +56,8 @@ Future<void> sendLocalNotification(
     // Schedule notification
 
     tz.initializeTimeZones();
-    final location = tz.getLocation(
-        'your_time_zone'); // Replace with your timezone (e.g., 'America/New_York')
+    final location = tz.getLocation(DateTime.now()
+        .timeZoneName); // Replace with your timezone (e.g., 'America/New_York')
 
     tz.TZDateTime scheduledDate = tz.TZDateTime.from(
         notificationTime, location); // Corrected variable name
