@@ -46,7 +46,7 @@ Future<void> sendLocalNotification(
     // Corrected variable name
     // Show immediate notification
     await flutterLocalNotificationsPlugin.show(
-      id,
+      0,
       title,
       body,
       platformChannelSpecifics,
@@ -56,8 +56,8 @@ Future<void> sendLocalNotification(
     // Schedule notification
 
     tz.initializeTimeZones();
-    final location = tz.getLocation(DateTime.now()
-        .timeZoneName); // Replace with your timezone (e.g., 'America/New_York')
+    final location = tz.getLocation(
+        tz.local.name); // Replace with your timezone (e.g., 'America/New_York')
 
     tz.TZDateTime scheduledDate = tz.TZDateTime.from(
         notificationTime, location); // Corrected variable name

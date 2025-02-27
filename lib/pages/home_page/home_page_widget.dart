@@ -114,7 +114,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   onPressed: () async {
                     await actions.sendLocalNotification(
                       'HAHA',
-                      '',
+                      'HOHOHO',
                       1,
                       'payload',
                       functions.newCustomFunction2(),

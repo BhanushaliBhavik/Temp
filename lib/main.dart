@@ -18,6 +18,7 @@ void main() async {
 
   // Start initial custom actions code
   await actions.initializedLocalNotifications();
+  await actions.makeChangesInAndroidMenifest();
   // End initial custom actions code
 
   await SupaFlow.initialize();
@@ -71,6 +72,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
       title: 'Test',
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
