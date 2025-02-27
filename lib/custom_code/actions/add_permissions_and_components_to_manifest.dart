@@ -11,60 +11,88 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'dart:io';
-import 'package:path_provider/path_provider.dart';
 
 Future<void> addPermissionsAndComponentsToManifest() async {
-  final permissions = [
-    '<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>',
-    '<uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>',
-    '<uses-permission android:name="android.permission.USE_EXACT_ALARM"/>',
-  ];
+  final manifestPath = 'android/app/src/main/AndroidManifest.xml';
+  final manifestFile = File(manifestPath);
 
-  final activity = '''
-    <activity
-      android:showWhenLocked="true"
-      android:turnScreenOn="true">
-    </activity>
-  ''';
+  // Check if the AndroidManifest.xml file exists
+  if (!await manifestFile.exists()) {
+    print('AndroidManifest.xml not found at $manifestPath');
+    return;
+  }
 
-  final receivers = [
-    '<receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"/>',
-    '''
-    <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
-      <intent-filter>
+  // Read the existing content of the AndroidManifest.xml
+  String content = await manifestFile.readAsString();
+
+  // Define the new content to add
+  String newContent = '''
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+<uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+<uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+
+<activity
+    android:name=".MainActivity"
+    android:exported="true"
+    android:launchMode="singleTop"
+    android:theme="@style/LaunchTheme"
+    android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+    android:hardwareAccelerated="true"
+    android:windowSoftInputMode="adjustResize"
+    android:showWhenLocked="true"
+    android:turnScreenOn="true">
+    <meta-data
+      android:name="io.flutter.embedding.android.NormalTheme"
+      android:resource="@style/NormalTheme"
+      />
+    <meta-data
+      android:name="io.flutter.embedding.android.SplashScreenDrawable"
+      android:resource="@drawable/launch_background"
+      />
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+    </intent-filter>
+    <meta-data android:name="flutter_deeplinking_enabled" android:value="true" />
+    <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="test" android:host="test.com" />
+    </intent-filter>
+</activity>
+
+<receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+<receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+    <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED"/>
         <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
-        <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+        <action android:name="android.intent.action.QUICKBOOT_POWERON" />
         <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
-      </intent-filter>
-    </receiver>
-    ''',
-    '<receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver"/>',
-  ];
+    </intent-filter>
+</receiver>
+<receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver" />
+<service
+    android:name="com.dexterous.flutterlocalnotifications.ForegroundService"
+    android:exported="false"
+    android:stopWithTask="false"
+    android:foregroundServiceType="location" />
+''';
 
-  final service = '''
-    <service
-      android:name="com.dexterous.flutterlocalnotifications.ForegroundService"
-      android:exported="false"
-      android:stopWithTask="false"
-      android:foregroundServiceType="location"/>
-  ''';
+  // Check if the new content already exists to avoid duplication
+  if (content.contains(newContent)) {
+    print('The specified content already exists in AndroidManifest.xml.');
+    return;
+  }
 
-  final manifestContent = StringBuffer()
-    ..writeln('<manifest>')
-    ..writeln(permissions.join('\n'))
-    ..writeln('<application>')
-    ..writeln(activity)
-    ..writeln(receivers.join('\n'))
-    ..writeln(service)
-    ..writeln('</application>')
-    ..writeln('</manifest>');
+  // Insert the new content before the closing </application> tag
+  final updatedContent = content.replaceFirst(
+    '</application>',
+    '$newContent\n</application>',
+  );
 
-  final directory = await getApplicationDocumentsDirectory();
-  final path = '${directory.path}/AndroidManifest.xml';
-
-  final file = File(path);
-  await file.writeAsString(manifestContent.toString());
-
-  print('AndroidManifest.xml updated at: $path');
+  // Write the updated content back to the AndroidManifest.xml
+  await manifestFile.writeAsString(updatedContent);
+  print('AndroidManifest.xml has been updated successfully.');
 }
