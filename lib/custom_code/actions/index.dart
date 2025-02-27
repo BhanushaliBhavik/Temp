@@ -5,5 +5,5 @@ export 'initialized_local_notifications.dart'
     show initializedLocalNotifications;
 export 'schedule_notification.dart' show scheduleNotification;
 export 'schedule_notifications.dart' show scheduleNotifications;
-export 'make_changes_in_android_menifest.dart'
-    show makeChangesInAndroidMenifest;
+export 'add_permissions_and_components_to_manifest.dart'
+    show addPermissionsAndComponentsToManifest;

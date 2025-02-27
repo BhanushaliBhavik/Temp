@@ -11,13 +11,9 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
-Future makeChangesInAndroidMenifest() async {
-  // Add your function code here!
-  addPermissionsAndComponentsToManifest();
-}
-
-void addPermissionsAndComponentsToManifest() {
+Future<void> addPermissionsAndComponentsToManifest() async {
   final permissions = [
     '<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>',
     '<uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>',
@@ -63,4 +59,12 @@ void addPermissionsAndComponentsToManifest() {
     ..writeln(service)
     ..writeln('</application>')
     ..writeln('</manifest>');
+
+  final directory = await getApplicationDocumentsDirectory();
+  final path = '${directory.path}/AndroidManifest.xml';
+
+  final file = File(path);
+  await file.writeAsString(manifestContent.toString());
+
+  print('AndroidManifest.xml updated at: $path');
 }
