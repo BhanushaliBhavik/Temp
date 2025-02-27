@@ -8,6 +8,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   String url =
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 
+  int? id = 1;
+
   @override
   void initState(BuildContext context) {}
 

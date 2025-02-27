@@ -115,10 +115,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     await actions.sendLocalNotification(
                       'HAHA',
                       'HOHOHO',
-                      1,
+                      _model.id!,
                       'payload',
                       functions.newCustomFunction2(),
                     );
+                    _model.id = _model.id! + 1;
+                    safeSetState(() {});
                   },
                   text: 'Button',
                   options: FFButtonOptions(

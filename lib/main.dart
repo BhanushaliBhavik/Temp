@@ -18,7 +18,6 @@ void main() async {
 
   // Start initial custom actions code
   await actions.initializedLocalNotifications();
-  await actions.addPermissionsAndComponentsToManifest();
   // End initial custom actions code
 
   await SupaFlow.initialize();

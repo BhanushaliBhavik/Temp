@@ -5,6 +5,3 @@ export 'initialized_local_notifications.dart'
     show initializedLocalNotifications;
 export 'schedule_notification.dart' show scheduleNotification;
 export 'schedule_notifications.dart' show scheduleNotifications;
-export 'add_permissions_and_components_to_manifest.dart'
-    show addPermissionsAndComponentsToManifest;
-export 'new_custom_action.dart' show newCustomAction;
