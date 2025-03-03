@@ -560,3 +560,10 @@ DateTime? newCustomFunction2() {
 
   return oneMinuteLater;
 }
+
+double returnSizeOfMedia(FFUploadedFile? media) {
+  // return the size of the uploaded media to two floating point
+  double sizeInBytes = media?.bytes?.lengthInBytes?.toDouble() ?? 0.0;
+  double sizeInMB = sizeInBytes / (1024 * 1024); // Convert bytes to MB
+  return double.parse(sizeInMB.toStringAsFixed(2));
+}

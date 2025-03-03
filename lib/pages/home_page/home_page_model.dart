@@ -10,6 +10,15 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   int? id = 1;
 
+  ///  State fields for stateful widgets in this page.
+
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
+
+  // Stores action output result for [Custom Action - newCustomAction] action in Button widget.
+  String? deviceName;
+
   @override
   void initState(BuildContext context) {}
 
