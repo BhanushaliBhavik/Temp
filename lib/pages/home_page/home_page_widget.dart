@@ -132,7 +132,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ),
               FFButtonWidget(
                 onPressed: () async {
-                  _model.deviceName = await actions.newCustomAction();
+                  _model.deviceName = await actions.getDeviceUniqueId();
 
                   safeSetState(() {});
                 },

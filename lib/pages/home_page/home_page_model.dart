@@ -16,7 +16,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
-  // Stores action output result for [Custom Action - newCustomAction] action in Button widget.
+  // Stores action output result for [Custom Action - getDeviceUniqueId] action in Button widget.
   String? deviceName;
 
   @override
