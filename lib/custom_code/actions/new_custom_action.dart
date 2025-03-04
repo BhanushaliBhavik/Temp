@@ -23,6 +23,7 @@ Future<String> newCustomAction() async {
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
       deviceId = androidInfo.id; // Get the ID for Android
+      print(androidInfo.fingerprint);
     } else if (Platform.isIOS) {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       deviceId = iosInfo.identifierForVendor ??
