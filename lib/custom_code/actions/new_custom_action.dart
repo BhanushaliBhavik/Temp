@@ -14,18 +14,24 @@ import 'package:device_info_plus/device_info_plus.dart'; // Import device_info_p
 import 'dart:io'; // Import dart:io for Platform checks
 
 Future<String> newCustomAction() async {
-  // return the device name
-  // Get the device name using the device_info package
+  // return the device ID
+  // Get the device ID using the device_info package
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  String deviceName = "";
+  String deviceId = "unknown"; // Default value in case of failure
 
-  if (Platform.isAndroid) {
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    deviceName = androidInfo.model; // Get the model name for Android
-  } else if (Platform.isIOS) {
-    IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    deviceName = iosInfo.name; // Get the name for iOS
+  try {
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      deviceId = androidInfo.id; // Get the ID for Android
+    } else if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      deviceId = iosInfo.identifierForVendor ??
+          "unknown"; // Get the ID for iOS, fallback to "unknown"
+    }
+  } catch (e) {
+    print("Error getting device ID: $e");
+    // deviceId remains "unknown"
   }
 
-  return deviceName; // Return the device name
+  return deviceId; // Return the device ID or "unknown"
 }
