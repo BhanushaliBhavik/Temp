@@ -223,7 +223,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 alignment: AlignmentDirectional(0.0, 0.0),
                 child: FFButtonWidget(
                   onPressed: () async {
-                    _model.online = await actions.isUserOffline();
+                    _model.online = await actions.checkDeviceIsOnlineOrNot();
 
                     safeSetState(() {});
                   },

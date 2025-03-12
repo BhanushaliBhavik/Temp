@@ -10,15 +10,21 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:connectivity_plus/connectivity_plus.dart'; // Import the connectivity_plus package
 
-Future<bool> isUserOffline() async {
+Future<bool> checkDeviceIsOnlineOrNot() async {
+  // Get the current connectivity status
   var connectivityResult = await Connectivity().checkConnectivity();
 
-  // Check if there is no internet connection
-  if (connectivityResult == ConnectivityResult.none) {
-    return true; // User is offline
+  // Check the connectivity status
+  if (connectivityResult == ConnectivityResult.mobile) {
+    // I am connected to a mobile network.
+    return true;
+  } else if (connectivityResult == ConnectivityResult.wifi) {
+    // I am connected to a wifi network.
+    return true;
+  } else {
+    // No internet connection.
+    return false;
   }
-
-  return false; // User is online
 }

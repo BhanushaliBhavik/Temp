@@ -22,7 +22,7 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   // Stores action output result for [Custom Action - getDeviceFingerprint] action in Button widget.
   String? finger;
-  // Stores action output result for [Custom Action - isUserOffline] action in Button widget.
+  // Stores action output result for [Custom Action - checkDeviceIsOnlineOrNot] action in Button widget.
   bool? online;
 
   @override
