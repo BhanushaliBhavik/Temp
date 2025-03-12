@@ -219,6 +219,43 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       letterSpacing: 0.0,
                     ),
               ),
+              Align(
+                alignment: AlignmentDirectional(0.0, 0.0),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    _model.online = await actions.isUserOffline();
+
+                    safeSetState(() {});
+                  },
+                  text: 'Button',
+                  options: FFButtonOptions(
+                    height: 40.0,
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: FlutterFlowTheme.of(context).primary,
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Inter Tight',
+                          color: Colors.white,
+                          letterSpacing: 0.0,
+                        ),
+                    elevation: 0.0,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ),
+              Text(
+                valueOrDefault<String>(
+                  _model.online?.toString(),
+                  'true',
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Inter',
+                      fontSize: 24.0,
+                      letterSpacing: 0.0,
+                    ),
+              ),
             ].divide(SizedBox(height: 10.0)),
           ),
         ),
