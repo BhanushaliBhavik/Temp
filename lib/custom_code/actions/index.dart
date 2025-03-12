@@ -5,4 +5,4 @@ export 'initialized_local_notifications.dart'
     show initializedLocalNotifications;
 export 'schedule_notification.dart' show scheduleNotification;
 export 'schedule_notifications.dart' show scheduleNotifications;
-export 'new_custom_action.dart' show newCustomAction;
+export 'get_device_fingerprint.dart' show getDeviceFingerprint;

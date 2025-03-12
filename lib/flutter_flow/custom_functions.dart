@@ -567,3 +567,8 @@ double returnSizeOfMedia(FFUploadedFile? media) {
   double sizeInMB = sizeInBytes / (1024 * 1024); // Convert bytes to MB
   return double.parse(sizeInMB.toStringAsFixed(2));
 }
+
+bool checkPdfOrNot(FFUploadedFile media) {
+  // Check if the file extension is .pdf (case insensitive)
+  return media.name!.toLowerCase().endsWith('.pdf');
+}

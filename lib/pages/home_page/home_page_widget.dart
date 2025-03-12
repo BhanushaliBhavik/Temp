@@ -1,11 +1,10 @@
+import '';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -28,11 +27,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      safeSetState(() {});
-    });
   }
 
   @override
@@ -69,7 +63,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     if (selectedMedia != null &&
                         selectedMedia.every((m) =>
                             validateFileFormat(m.storagePath, context))) {
-                      safeSetState(() => _model.isDataUploading = true);
+                      safeSetState(() => _model.isDataUploading1 = true);
                       var selectedUploadedFiles = <FFUploadedFile>[];
 
                       try {
@@ -83,12 +77,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ))
                             .toList();
                       } finally {
-                        _model.isDataUploading = false;
+                        _model.isDataUploading1 = false;
                       }
                       if (selectedUploadedFiles.length ==
                           selectedMedia.length) {
                         safeSetState(() {
-                          _model.uploadedLocalFile =
+                          _model.uploadedLocalFile1 =
                               selectedUploadedFiles.first;
                         });
                       } else {
@@ -120,7 +114,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               Text(
                 valueOrDefault<String>(
                   functions
-                      .returnSizeOfMedia(_model.uploadedLocalFile)
+                      .returnSizeOfMedia(_model.uploadedLocalFile1)
                       .toString(),
                   'HAHA',
                 ),
@@ -132,7 +126,33 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ),
               FFButtonWidget(
                 onPressed: () async {
-                  _model.deviceName = await actions.newCustomAction();
+                  final selectedFiles = await selectFiles(
+                    allowedExtensions: ['pdf'],
+                    multiFile: false,
+                  );
+                  if (selectedFiles != null) {
+                    safeSetState(() => _model.isDataUploading2 = true);
+                    var selectedUploadedFiles = <FFUploadedFile>[];
+
+                    try {
+                      selectedUploadedFiles = selectedFiles
+                          .map((m) => FFUploadedFile(
+                                name: m.storagePath.split('/').last,
+                                bytes: m.bytes,
+                              ))
+                          .toList();
+                    } finally {
+                      _model.isDataUploading2 = false;
+                    }
+                    if (selectedUploadedFiles.length == selectedFiles.length) {
+                      safeSetState(() {
+                        _model.uploadedLocalFile2 = selectedUploadedFiles.first;
+                      });
+                    } else {
+                      safeSetState(() {});
+                      return;
+                    }
+                  }
 
                   safeSetState(() {});
                 },
@@ -152,17 +172,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-              Text(
-                valueOrDefault<String>(
-                  _model.deviceName,
-                  'HOHO',
+              if ((_model.uploadedLocalFile2.bytes?.isNotEmpty ?? false))
+                Text(
+                  functions.checkPdfOrNot(_model.uploadedLocalFile2).toString(),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Inter',
+                        fontSize: 24.0,
+                        letterSpacing: 0.0,
+                      ),
                 ),
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: 'Inter',
-                      fontSize: 24.0,
-                      letterSpacing: 0.0,
-                    ),
-              ),
             ].divide(SizedBox(height: 10.0)),
           ),
         ),
