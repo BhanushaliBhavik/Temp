@@ -20,6 +20,9 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
+  // Stores action output result for [Custom Action - getDeviceFingerprint] action in Button widget.
+  String? finger;
+
   @override
   void initState(BuildContext context) {}
 
