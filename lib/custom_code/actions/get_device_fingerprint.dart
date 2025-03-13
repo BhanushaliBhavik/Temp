@@ -35,6 +35,7 @@ Future<String> getDeviceFingerprint() async {
       "systemVersion": iosInfo.systemVersion,
       "localizedModel": iosInfo.localizedModel,
     };
+    return iosInfo.identifierForVendor ?? "HAHA";
   }
   // Generate hash (fingerprint)
   return generateHash(deviceData);

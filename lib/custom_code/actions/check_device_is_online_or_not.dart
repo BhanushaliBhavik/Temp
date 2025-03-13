@@ -17,10 +17,10 @@ Future<bool> checkDeviceIsOnlineOrNot() async {
   var connectivityResult = await Connectivity().checkConnectivity();
 
   // Check the connectivity status
-  if (connectivityResult == ConnectivityResult.mobile) {
+  if (connectivityResult[0] == ConnectivityResult.mobile) {
     // I am connected to a mobile network.
     return true;
-  } else if (connectivityResult == ConnectivityResult.wifi) {
+  } else if (connectivityResult[0] == ConnectivityResult.wifi) {
     // I am connected to a wifi network.
     return true;
   } else {
