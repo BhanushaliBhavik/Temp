@@ -18,7 +18,7 @@ Future<String> getDeviceName() async {
 
   if (Platform.isAndroid) {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    return "${androidInfo.brand} ${androidInfo.model}"; // Example: "Samsung Galaxy S21"
+    return "${androidInfo.brand} ${androidInfo.board} ${androidInfo.device} ${androidInfo.name} ${androidInfo.product}"; // Example: "Samsung Galaxy S21"
   } else if (Platform.isIOS) {
     IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
     return iosInfo.name; // Example: "John's iPhone"
