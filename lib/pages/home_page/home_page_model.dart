@@ -1,4 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
+import '/index.dart';
 import 'home_page_widget.dart' show HomePageWidget;
 import 'package:flutter/material.dart';
 
@@ -12,22 +13,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  bool isDataUploading1 = false;
-  FFUploadedFile uploadedLocalFile1 =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-
-  bool isDataUploading2 = false;
-  FFUploadedFile uploadedLocalFile2 =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
-
-  // Stores action output result for [Custom Action - getDeviceFingerprint] action in Button widget.
-  String? finger;
-  // Stores action output result for [Custom Action - checkDeviceIsOnlineOrNot] action in Button widget.
-  bool? online;
-  // Stores action output result for [Custom Action - newCustomAction] action in Button widget.
-  String? newsh;
-  // Stores action output result for [Custom Action - getDeviceName] action in Button widget.
-  String? name;
+  // Stores action output result for [Custom Action - loginWith] action in Button widget.
+  String? login;
 
   @override
   void initState(BuildContext context) {}
