@@ -835,7 +835,7 @@ class _Auth1WidgetState extends State<Auth1Widget>
                                                                       width:
                                                                           230.0,
                                                                       height:
-                                                                          44.0,
+                                                                          66.22,
                                                                       padding: EdgeInsetsDirectional.fromSTEB(
                                                                           0.0,
                                                                           0.0,
