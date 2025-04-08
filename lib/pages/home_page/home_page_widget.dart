@@ -77,6 +77,30 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ),
                 ),
               ),
+              FFButtonWidget(
+                onPressed: () async {
+                  await actions.scheduleLocalNotification(
+                    'Hello',
+                    'HAHAHAHA',
+                    'HOHOHOHO',
+                  );
+                },
+                text: 'schedule notification',
+                options: FFButtonOptions(
+                  height: 40.0,
+                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                  iconPadding:
+                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                  color: FlutterFlowTheme.of(context).primary,
+                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                        fontFamily: 'Inter Tight',
+                        color: Colors.white,
+                        letterSpacing: 0.0,
+                      ),
+                  elevation: 0.0,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
             ].divide(SizedBox(height: 20.0)).around(SizedBox(height: 20.0)),
           ),
         ),
