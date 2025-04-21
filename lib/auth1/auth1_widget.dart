@@ -39,6 +39,7 @@ class _Auth1WidgetState extends State<Auth1Widget>
       length: 2,
       initialIndex: 0,
     )..addListener(() => safeSetState(() {}));
+
     _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
 
@@ -514,28 +515,9 @@ class _Auth1WidgetState extends State<Auth1Widget>
                                                           0.0, 0.0, 0.0, 16.0),
                                                   child: FFButtonWidget(
                                                     onPressed: () async {
-                                                      GoRouter.of(context)
-                                                          .prepareAuthEvent();
-
-                                                      final user =
-                                                          await authManager
-                                                              .signInWithEmail(
-                                                        context,
-                                                        _model
-                                                            .emailAddressTextController
-                                                            .text,
-                                                        _model
-                                                            .passwordTextController
-                                                            .text,
-                                                      );
-                                                      if (user == null) {
-                                                        return;
-                                                      }
-
-                                                      context.goNamedAuth(
+                                                      context.pushNamed(
                                                           HomePageWidget
-                                                              .routeName,
-                                                          context.mounted);
+                                                              .routeName);
                                                     },
                                                     text: 'Sign In',
                                                     options: FFButtonOptions(

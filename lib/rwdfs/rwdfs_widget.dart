@@ -1,29 +1,28 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'temp_model.dart';
-export 'temp_model.dart';
+import 'rwdfs_model.dart';
+export 'rwdfs_model.dart';
 
-class TempWidget extends StatefulWidget {
-  const TempWidget({super.key});
+class RwdfsWidget extends StatefulWidget {
+  const RwdfsWidget({super.key});
 
-  static String routeName = 'Temp';
-  static String routePath = '/temp';
+  static String routeName = 'rwdfs';
+  static String routePath = '/rwdfs';
 
   @override
-  State<TempWidget> createState() => _TempWidgetState();
+  State<RwdfsWidget> createState() => _RwdfsWidgetState();
 }
 
-class _TempWidgetState extends State<TempWidget> {
-  late TempModel _model;
+class _RwdfsWidgetState extends State<RwdfsWidget> {
+  late RwdfsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TempModel());
+    _model = createModel(context, () => RwdfsModel());
   }
 
   @override
@@ -63,21 +62,7 @@ class _TempWidgetState extends State<TempWidget> {
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: [
-              Divider(
-                thickness: 2.0,
-                color: FlutterFlowTheme.of(context).alternate,
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: SvgPicture.asset(
-                  'assets/images/labeled_human_body.svg',
-                  width: 234.0,
-                  height: 625.31,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
+            children: [],
           ),
         ),
       ),

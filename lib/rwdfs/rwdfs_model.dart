@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'temp_widget.dart' show TempWidget;
+import 'rwdfs_widget.dart' show RwdfsWidget;
 import 'package:flutter/material.dart';
 
-class TempModel extends FlutterFlowModel<TempWidget> {
+class RwdfsModel extends FlutterFlowModel<RwdfsWidget> {
   @override
   void initState(BuildContext context) {}
 

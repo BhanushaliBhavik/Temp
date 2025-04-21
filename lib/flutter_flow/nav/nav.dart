@@ -100,6 +100,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: Auth1Widget.routeName,
           path: Auth1Widget.routePath,
           builder: (context, params) => Auth1Widget(),
+        ),
+        FFRoute(
+          name: RwdfsWidget.routeName,
+          path: RwdfsWidget.routePath,
+          builder: (context, params) => RwdfsWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
