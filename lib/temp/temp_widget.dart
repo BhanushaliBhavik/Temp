@@ -1,7 +1,8 @@
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'temp_model.dart';
 export 'temp_model.dart';
 
@@ -46,8 +47,22 @@ class _TempWidgetState extends State<TempWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 60.0,
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.white,
+              size: 30.0,
+            ),
+            onPressed: () async {
+              context.pop();
+            },
+          ),
           title: Text(
-            'Page Title',
+            'Test',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Inter Tight',
                   color: Colors.white,
@@ -56,7 +71,7 @@ class _TempWidgetState extends State<TempWidget> {
                 ),
           ),
           actions: [],
-          centerTitle: false,
+          centerTitle: true,
           elevation: 2.0,
         ),
         body: SafeArea(
@@ -68,13 +83,18 @@ class _TempWidgetState extends State<TempWidget> {
                 thickness: 2.0,
                 color: FlutterFlowTheme.of(context).alternate,
               ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: SvgPicture.asset(
-                  'assets/images/labeled_human_body.svg',
-                  width: 234.0,
-                  height: 625.31,
-                  fit: BoxFit.cover,
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(),
+                  child: Container(
+                    width: 300.0,
+                    height: 600.0,
+                    child: custom_widgets.HumanBody(
+                      width: 300.0,
+                      height: 600.0,
+                    ),
+                  ),
                 ),
               ),
             ],

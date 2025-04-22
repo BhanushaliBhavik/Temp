@@ -7,6 +7,7 @@ import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
+import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
@@ -78,18 +79,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? HomePageWidget() : Auth1Widget(),
+          appStateNotifier.loggedIn ? NavBarPage() : Auth1Widget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? HomePageWidget() : Auth1Widget(),
+              appStateNotifier.loggedIn ? NavBarPage() : Auth1Widget(),
         ),
         FFRoute(
           name: HomePageWidget.routeName,
           path: HomePageWidget.routePath,
-          builder: (context, params) => HomePageWidget(),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'HomePage')
+              : HomePageWidget(),
         ),
         FFRoute(
           name: TempWidget.routeName,
@@ -104,9 +107,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: RwdfsWidget.routeName,
           path: RwdfsWidget.routePath,
-          builder: (context, params) => RwdfsWidget(),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'rwdfs')
+              : NavBarPage(
+                  initialPage: 'rwdfs',
+                  page: RwdfsWidget(),
+                ),
+        ),
+        FFRoute(
+          name: AbcdWidget.routeName,
+          path: AbcdWidget.routePath,
+          builder: (context, params) => AbcdWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
+      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {

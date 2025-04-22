@@ -9,125 +9,146 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:xml/xml.dart';
+import 'package:flutter/services.dart';
 import 'package:path_drawing/path_drawing.dart';
+import 'package:xml/xml.dart';
+import 'package:interactive_viewer_2/interactive_viewer_2.dart';
 
 class HumanBody extends StatefulWidget {
+  // Changed class name here
   const HumanBody({
     super.key,
     this.width,
     this.height,
-    required this.svg, // now svg String comes here
   });
 
   final double? width;
   final double? height;
-  final String svg;
 
   @override
-  State<HumanBody> createState() => _HumanBodyState();
+  State<HumanBody> createState() =>
+      _HumanBodyState(); // Updated state class reference
 }
 
 class _HumanBodyState extends State<HumanBody> {
-  Map<String, Path> bodyPaths = {};
-  String? selectedPart;
+  // Updated state class name
+  List<Region> regions = [];
+  Region? selectedRegion;
 
   @override
   void initState() {
     super.initState();
-    loadRegions();
+    loadRegions().then((data) {
+      regions = data;
+      setState(() {});
+    });
   }
 
-  Future<void> loadRegions() async {
-    try {
-      final document = XmlDocument.parse(widget.svg);
-      final paths = document.findAllElements('path');
-
-      Map<String, Path> tempPaths = {};
-
-      for (var path in paths) {
-        final id = path.getAttribute('id');
-        final d = path.getAttribute('d');
-        if (id != null && d != null) {
-          tempPaths[id] = parseSvgPathData(d);
-        }
+  Future<List<Region>> loadRegions() async {
+    // Added Future type for clarity
+    const path = 'assets/images/labeled_human_body.svg';
+    final content = await rootBundle.loadString(path);
+    final document = XmlDocument.parse(content);
+    final paths = document.findAllElements("path");
+    final regions = <Region>[];
+    for (var element in paths) {
+      final partId = element.getAttribute('id') ?? '';
+      if (partId.isEmpty) {
+        continue;
       }
-
-      setState(() {
-        bodyPaths = tempPaths;
-      });
-    } catch (e) {
-      debugPrint('Error parsing SVG: $e');
+      final partPath = element.getAttribute('d').toString();
+      regions.add(Region(id: partId, path: partPath));
     }
+    return regions;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (bodyPaths.isEmpty) {
-      return Center(child: CircularProgressIndicator());
-    }
-
-    return GestureDetector(
-      onTapDown: (details) {
-        _detectTap(details.localPosition);
-      },
-      child: CustomPaint(
-        size: Size(widget.width ?? 200, widget.height ?? 600),
-        painter: _BodyPainter(
-          paths: bodyPaths,
-          selectedPart: selectedPart,
+    return Scaffold(
+      body: InteractiveViewer2(
+        panEnabled: true,
+        maxScale: 5,
+        minScale: 1,
+        child: Stack(
+          children: [
+            for (final region in regions) ...[
+              _getRegionBorder(region),
+              _getRegionImage(
+                region,
+                selectedRegion?.id == region.id ? Colors.green : Colors.grey,
+              ),
+            ],
+          ],
         ),
       ),
     );
   }
 
-  void _detectTap(Offset localPosition) {
-    for (var entry in bodyPaths.entries) {
-      final path = entry.value;
-      final matrix = Matrix4.identity()
-        ..scale((widget.width ?? 200) / 200, (widget.height ?? 600) / 600);
-      final transformedPath = path.transform(matrix.storage);
-      if (transformedPath.contains(localPosition)) {
-        setState(() {
-          selectedPart = entry.key;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Tapped on: ${entry.key}')),
-        );
-        break;
-      }
-    }
+  Widget _getRegionImage(Region region, [Color color = Colors.grey]) {
+    return ClipPath(
+      clipper: RegionClipper(svgPath: region.path),
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            selectedRegion = region;
+          });
+        },
+        child: Container(
+          color: color,
+        ),
+      ),
+    );
+  }
+
+  Widget _getRegionBorder(Region region) {
+    return CustomPaint(
+      painter: RegionBorderPainter(path: parseSvgPathData(region.path)),
+    );
   }
 }
 
-class _BodyPainter extends CustomPainter {
-  final Map<String, Path> paths;
-  final String? selectedPart;
+class Region {
+  final String id;
+  final String path;
 
-  _BodyPainter({required this.paths, this.selectedPart});
+  Region({required this.id, required this.path});
+}
+
+class RegionClipper extends CustomClipper<Path> {
+  final String svgPath;
+
+  RegionClipper({super.reclip, required this.svgPath});
 
   @override
-  void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()
-      ..style = PaintingStyle.fill
-      ..color = Colors.grey.shade300;
-
-    final Paint selectedPaint = Paint()
-      ..style = PaintingStyle.fill
-      ..color = Colors.blueAccent;
-
-    final matrix = Matrix4.identity()
-      ..scale(size.width / 200, size.height / 600);
-
-    for (var entry in paths.entries) {
-      final path = entry.value.transform(matrix.storage);
-      canvas.drawPath(path, entry.key == selectedPart ? selectedPaint : paint);
-    }
+  Path getClip(Size size) {
+    final path = parseSvgPathData(svgPath);
+    return path;
   }
 
   @override
-  bool shouldRepaint(covariant _BodyPainter oldDelegate) {
-    return oldDelegate.paths != paths ||
-        oldDelegate.selectedPart != selectedPart;
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
+  }
+}
+
+class RegionBorderPainter extends CustomPainter {
+  final Path path;
+  late final Paint borderPaint;
+
+  RegionBorderPainter({super.repaint, required this.path}) {
+    borderPaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 0.5
+      ..color = Colors.black;
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawPath(path, borderPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
   }
 }
