@@ -118,9 +118,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: AbcdWidget.routeName,
           path: AbcdWidget.routePath,
           builder: (context, params) => AbcdWidget(),
+        ),
+        FFRoute(
+          name: Temp2Widget.routeName,
+          path: Temp2Widget.routePath,
+          builder: (context, params) => Temp2Widget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
-      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {

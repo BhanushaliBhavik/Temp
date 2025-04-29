@@ -1,7 +1,8 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_video_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'abcd_model.dart';
 export 'abcd_model.dart';
 
@@ -49,10 +50,19 @@ class _AbcdWidgetState extends State<AbcdWidget> {
           title: Text(
             'Page Title',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Inter Tight',
+                  font: GoogleFonts.interTight(
+                    fontWeight:
+                        FlutterFlowTheme.of(context).headlineMedium.fontWeight,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                  ),
                   color: Colors.white,
                   fontSize: 22.0,
                   letterSpacing: 0.0,
+                  fontWeight:
+                      FlutterFlowTheme.of(context).headlineMedium.fontWeight,
+                  fontStyle:
+                      FlutterFlowTheme.of(context).headlineMedium.fontStyle,
                 ),
           ),
           actions: [],
@@ -64,15 +74,14 @@ class _AbcdWidgetState extends State<AbcdWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              FlutterFlowVideoPlayer(
-                path:
-                    'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4',
-                videoType: VideoType.network,
-                autoPlay: false,
-                looping: true,
-                showControls: true,
-                allowFullScreen: true,
-                allowPlaybackSpeedMenu: false,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: SvgPicture.asset(
+                  'assets/images/labeled_human_body.svg',
+                  width: 223.4,
+                  height: 593.2,
+                  fit: BoxFit.cover,
+                ),
               ),
             ],
           ),

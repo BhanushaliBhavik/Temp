@@ -1,31 +1,29 @@
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'temp_model.dart';
-export 'temp_model.dart';
+import 'temp2_model.dart';
+export 'temp2_model.dart';
 
-class TempWidget extends StatefulWidget {
-  const TempWidget({super.key});
+class Temp2Widget extends StatefulWidget {
+  const Temp2Widget({super.key});
 
-  static String routeName = 'Temp';
-  static String routePath = '/temp';
+  static String routeName = 'temp2';
+  static String routePath = '/temp2';
 
   @override
-  State<TempWidget> createState() => _TempWidgetState();
+  State<Temp2Widget> createState() => _Temp2WidgetState();
 }
 
-class _TempWidgetState extends State<TempWidget> {
-  late TempModel _model;
+class _Temp2WidgetState extends State<Temp2Widget> {
+  late Temp2Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TempModel());
+    _model = createModel(context, () => Temp2Model());
   }
 
   @override
@@ -48,22 +46,8 @@ class _TempWidgetState extends State<TempWidget> {
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderColor: Colors.transparent,
-            borderRadius: 30.0,
-            borderWidth: 1.0,
-            buttonSize: 60.0,
-            icon: Icon(
-              Icons.arrow_back_rounded,
-              color: Colors.white,
-              size: 30.0,
-            ),
-            onPressed: () async {
-              context.pop();
-            },
-          ),
           title: Text(
-            'Test',
+            'Page Title',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   font: GoogleFonts.interTight(
                     fontWeight:
@@ -81,33 +65,14 @@ class _TempWidgetState extends State<TempWidget> {
                 ),
           ),
           actions: [],
-          centerTitle: true,
+          centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: [
-              Divider(
-                thickness: 2.0,
-                color: FlutterFlowTheme.of(context).alternate,
-              ),
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(),
-                  child: Container(
-                    width: 300.0,
-                    height: 600.0,
-                    child: custom_widgets.HumanBody(
-                      width: 300.0,
-                      height: 600.0,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            children: [],
           ),
         ),
       ),
